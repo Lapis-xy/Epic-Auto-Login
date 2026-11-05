@@ -80,7 +80,7 @@ function renderGrid() {
       makeTile({
         label: p.name.charAt(0).toUpperCase(),
         name: p.name,
-        email: p.email,
+        email: showMail ? p.email : '',
         color: colorFor(p.name),
         icon: p.icon,
         className: manageMode ? 'managing' : '',
@@ -152,6 +152,7 @@ function setView(next) {
   $('#account-view').hidden = view !== 'account';
   $('#manager-view').hidden = view !== 'manager';
   $('#manage-btn').hidden = view !== 'account';
+  $('#eye-btn').hidden = view !== 'account';
   $('#manage-btn').textContent = 'Gestisci';
   $('#switch-btn').textContent = view === 'account' ? 'Password manager' : 'Account';
   $('#title').textContent = view === 'account' ? 'Chi sta giocando?' : 'Password manager';
@@ -194,19 +195,23 @@ function openAdd() {
   $('#p-visible').checked = true;
   addIcon = null;
   paintAvatar($('#add-preview'), { label: '+', color: 'var(--line)', icon: null });
-  $('#add-box').hidden = false;
+  $('#add-modal').hidden = false;
   $('#p-name').focus();
 }
 
 function closeAdd() {
   $('#add-form').reset();
   addIcon = null;
-  $('#add-box').hidden = true;
+  $('#add-modal').hidden = true;
 }
 
 $('#manager-add').addEventListener('click', openAdd);
 $('#add-pick').addEventListener('click', () => pickIconFor('add'));
 $('#add-cancel').addEventListener('click', closeAdd);
+$('#add-x').addEventListener('click', closeAdd);
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && !$('#add-modal').hidden) closeAdd();
+});
 
 $('#add-form').addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -239,15 +244,14 @@ function openEdit(p) {
   $('#edit-title').textContent = p.name;
   $('#edit-sub').textContent = p.email;
   paintAvatar($('#edit-preview'), { label: p.name.charAt(0).toUpperCase(), color: colorFor(p.name), icon: p.icon });
-  $('#edit-box').hidden = false;
-  $('#edit-box').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  $('#edit-modal').hidden = false;
 }
 
 function closeEdit() {
   editingId = null;
   editIcon = undefined;
   $('#edit-form').reset();
-  $('#edit-box').hidden = true;
+  $('#edit-modal').hidden = true;
 }
 
 $('#edit-pick').addEventListener('click', () => pickIconFor('edit'));
@@ -257,6 +261,7 @@ $('#edit-clear').addEventListener('click', () => {
   paintAvatar($('#edit-preview'), { label: name.charAt(0).toUpperCase(), color: colorFor(name), icon: null });
 });
 $('#edit-cancel').addEventListener('click', closeEdit);
+$('#edit-x').addEventListener('click', closeEdit);
 $('#edit-delete').addEventListener('click', () => removePreset(editingId, $('#e-name').value));
 
 $('#edit-form').addEventListener('submit', async (e) => {
@@ -307,14 +312,44 @@ async function fillPreset(id) {
 $('#stop-btn').addEventListener('click', () => window.vault.stop());
 
 // ---------- Copia dagli appunti ----------
+let toastTimer = null;
+function showToast(text) {
+  const el = $('#toast');
+  el.textContent = text;
+  el.hidden = false;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    el.hidden = true;
+  }, 2500);
+}
+
 async function copySecret(id, field, label) {
   try {
     await call(window.vault.copy(id, field));
-    setStatus(`${label} copiata. Si cancella dagli appunti tra 30 secondi.`);
+    showToast(`${label} copiata. Si cancella dagli appunti tra 30 secondi.`);
   } catch (err) {
     setStatus(`Errore: ${err.message}`);
   }
 }
+
+// ---------- Mostra/nascondi email nella vista Account ----------
+let showMail = localStorage.getItem('showMail') !== 'false';
+
+function syncEye() {
+  const btn = $('#eye-btn');
+  btn.setAttribute('aria-pressed', String(showMail));
+  btn.classList.toggle('active', showMail);
+  btn.title = showMail ? 'Nascondi email' : 'Mostra email';
+}
+
+$('#eye-btn').addEventListener('click', () => {
+  showMail = !showMail;
+  localStorage.setItem('showMail', String(showMail));
+  syncEye();
+  renderGrid();
+});
+
+syncEye();
 
 // ---------- Calibrazione campi ----------
 async function renderCalib() {

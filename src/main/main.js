@@ -25,6 +25,7 @@ function createWindow() {
     width: 800,
     height: 620,
     title: 'Epic Vault',
+    icon: path.join(__dirname, '..', 'renderer', 'icon.png'),
     webPreferences: {
       preload: path.join(__dirname, '..', 'preload', 'preload.js'),
       contextIsolation: true,

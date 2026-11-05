@@ -232,3 +232,72 @@ button.danger { color: var(--danger); }
 .field-label { display: block; font-size: 12px; color: var(--muted); margin: 8px 0 4px; }
 .icon-actions { display: flex; gap: 8px; margin-bottom: 6px; }
 #edit-delete { margin-right: auto; }
+
+/* Modifica profilo: overlay sopra la pagina, si chiude solo con Annulla o Salva */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(8, 10, 14, 0.72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  z-index: 150;
+}
+.modal .panel.editing {
+  width: 100%;
+  max-width: 460px;
+  margin: 0;
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+/* Feedback verde in basso al centro */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  background: #1f9d55;
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+  z-index: 200;
+  white-space: nowrap;
+}
+
+/* Nuovo profilo: overlay con X in alto a destra */
+.modal .panel:not(.editing) {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  margin: 0;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+.close-x {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 22px;
+  line-height: 1;
+  border-radius: 6px;
+}
+.close-x:hover { background: var(--line); color: var(--text); filter: none; }
+
+/* Occhio per mostrare/nascondere le email nella vista Account */
+.icon-btn { padding: 6px 8px; display: inline-flex; align-items: center; justify-content: center; }
+.icon-btn svg { width: 18px; height: 18px; }
+#eye-btn.active { color: var(--accent); border-color: var(--accent); }
+.tile-mail:empty { display: none; }
+
+/* La × serve anche nel pannello di modifica */
+.modal .panel.editing { position: relative; }

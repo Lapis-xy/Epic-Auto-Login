@@ -11,6 +11,7 @@
     <header>
       <h1 id="title">Chi sta giocando?</h1>
       <div class="header-actions">
+        <button id="eye-btn" class="ghost icon-btn" aria-pressed="true" title="Mostra o nascondi email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg></button>
         <button id="manage-btn" class="ghost">Gestisci</button>
         <button id="switch-btn" class="ghost">Password manager</button>
       </div>
@@ -40,7 +41,9 @@
     </div>
 
     <!-- Nuovo profilo -->
-    <section id="add-box" class="panel" hidden>
+    <div id="add-modal" class="modal" hidden>
+    <section id="add-box" class="panel">
+      <button type="button" id="add-x" class="close-x" aria-label="Chiudi">×</button>
       <h2>Nuovo profilo</h2>
       <form id="add-form">
         <div class="icon-row">
@@ -57,9 +60,12 @@
         </div>
       </form>
     </section>
+    </div>
 
     <!-- Modifica profilo -->
-    <section id="edit-box" class="panel editing" hidden>
+    <div id="edit-modal" class="modal" hidden>
+    <section id="edit-box" class="panel editing">
+      <button type="button" id="edit-x" class="close-x" aria-label="Chiudi">×</button>
       <div class="edit-head">
         <div id="edit-preview" class="preview"></div>
         <div class="edit-title">
@@ -93,8 +99,10 @@
         </div>
       </form>
     </section>
+    </div>
 
     <div id="status" class="status"></div>
+    <div id="toast" class="toast" hidden></div>
     <button id="stop-btn" class="stop" hidden>FERMA</button>
   </section>
 
