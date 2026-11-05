@@ -1,6 +1,6 @@
 const path = require('node:path');
 const fs = require('node:fs');
-const { app, BrowserWindow, ipcMain, dialog, globalShortcut, screen, clipboard } = require('electron');
+const { app, BrowserWindow, ipcMain, dialog, globalShortcut, screen, clipboard, Menu } = require('electron');
 const { Vault } = require('./vault');
 const { launchEpic, openBrave } = require('./launcher');
 const { fill, getCursorPos, placeEpic, EPIC_RECT } = require('./autofill');
@@ -250,6 +250,8 @@ handle('preset:stop', () => {
 });
 
 app.whenReady().then(() => {
+  // Nasconde la barra dei menu (File, Edit, View, Window, Help)
+  Menu.setApplicationMenu(null);
   try {
     vault.init();
   } catch (err) {
