@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; img-src 'self' data:" />
+  <title>Epic Vault</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <section class="view">
+    <header>
+      <h1 id="title">Chi sta giocando?</h1>
+      <div class="header-actions">
+        <button id="manage-btn" class="ghost">Gestisci</button>
+        <button id="switch-btn" class="ghost">Password manager</button>
+      </div>
+    </header>
+
+    <!-- Vista Account: stile Steam -->
+    <div id="account-view">
+      <div id="grid" class="grid"></div>
+    </div>
+
+    <!-- Vista Password manager -->
+    <div id="manager-view" hidden>
+      <div class="manager-top">
+        <button id="manager-add">+ Aggiungi</button>
+      </div>
+      <ul id="list"></ul>
+
+      <section class="panel calib">
+        <h2>Campi di Epic</h2>
+        <p class="muted" id="calib-info"></p>
+        <div class="calib-buttons">
+          <button id="calib-email" class="ghost">Imposta campo email</button>
+          <button id="calib-pass" class="ghost">Imposta campo password</button>
+          <button id="calib-clear" class="ghost">Azzera</button>
+        </div>
+      </section>
+    </div>
+
+    <!-- Nuovo profilo -->
+    <section id="add-box" class="panel" hidden>
+      <h2>Nuovo profilo</h2>
+      <form id="add-form">
+        <div class="icon-row">
+          <div id="add-preview" class="preview"></div>
+          <button type="button" id="add-pick" class="ghost">Scegli icona</button>
+        </div>
+        <input type="text" id="p-name" placeholder="Nome (es. Account principale)" required />
+        <input type="email" id="p-email" placeholder="Email" required />
+        <input type="password" id="p-pass" placeholder="Password" required />
+        <label class="check"><input type="checkbox" id="p-visible" checked /> Mostra tra gli account</label>
+        <div class="form-actions">
+          <button type="button" id="add-cancel" class="ghost">Annulla</button>
+          <button type="submit">Salva</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Modifica profilo -->
+    <section id="edit-box" class="panel editing" hidden>
+      <div class="edit-head">
+        <div id="edit-preview" class="preview"></div>
+        <div class="edit-title">
+          <div class="edit-label">Stai modificando</div>
+          <h2 id="edit-title"></h2>
+          <div class="edit-sub" id="edit-sub"></div>
+        </div>
+      </div>
+
+      <form id="edit-form">
+        <div class="icon-actions">
+          <button type="button" id="edit-pick" class="ghost">Cambia icona</button>
+          <button type="button" id="edit-clear" class="ghost">Rimuovi icona</button>
+        </div>
+
+        <label class="field-label" for="e-name">Nome</label>
+        <input type="text" id="e-name" required />
+
+        <label class="field-label" for="e-email">Email</label>
+        <input type="email" id="e-email" required />
+
+        <label class="field-label" for="e-pass">Nuova password</label>
+        <input type="password" id="e-pass" placeholder="Lascia vuoto per non cambiarla" />
+
+        <label class="check"><input type="checkbox" id="e-visible" /> Mostra tra gli account</label>
+
+        <div class="form-actions">
+          <button type="button" id="edit-delete" class="ghost danger">Elimina</button>
+          <button type="button" id="edit-cancel" class="ghost">Annulla</button>
+          <button type="submit">Salva modifiche</button>
+        </div>
+      </form>
+    </section>
+
+    <div id="status" class="status"></div>
+    <button id="stop-btn" class="stop" hidden>FERMA</button>
+  </section>
+
+  <script src="renderer.js"></script>
+</body>
+</html>
