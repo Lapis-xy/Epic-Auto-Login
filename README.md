@@ -27,26 +27,8 @@ Uno strumento sviluppato per automatizzare la procedura di accesso agli account 
 1. Clona la repository:
    ```bash
    git clone https://github.com/Lapis-xy/passwordManager.git
-   cd passwordManager
+   cd EpicPasswordManager
    ```
 2. Installa le eventuali dipendenze richieste dal progetto.
 3. Configura le tue credenziali nel file di configurazione o nelle variabili d'ambiente previste.
 
----
-
-## Utilizzo
-
-Avvia lo script o l'eseguibile principale del progetto prima o durante l'apertura della schermata di login di Epic Games:
-
-```bash
-# Esempio di avvio (sostituisci con il comando reale del tuo progetto)
-python main.py
-```
-
----
-
-## Sicurezza e Disclaimer
-
-- **Uso personale:** Questo progetto è stato realizzato a scopo educativo e di automazione personale.
-- **Protezione delle credenziali:** Assicurati di non caricare mai file contenenti password in chiaro su repository pubbliche (usa `.gitignore` per escludere eventuali file di configurazione sensibili).
-- **Termini di servizio:** Verifica sempre il rispetto dei Termini di Servizio di Epic Games durante l'utilizzo di strumenti di automazione.
