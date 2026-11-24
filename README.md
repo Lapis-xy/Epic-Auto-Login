@@ -22,8 +22,6 @@ Uno strumento sviluppato per automatizzare la procedura di accesso agli account 
 
 ## Requisiti e Installazione
 
-> *Nota: aggiorna questa sezione in base al linguaggio e alle librerie utilizzate nel tuo codice (es. Python, C#, Node.js, Selenium, PyAutoGUI, ecc.).*
-
 1. Clona la repository:
    ```bash
    git clone https://github.com/Lapis-xy/passwordManager.git
